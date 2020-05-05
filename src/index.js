@@ -1,8 +1,10 @@
 const express= require('express');
 const app= express();
 const port= 3000;
+const bodyParser = require('body-parser');
 
 const mysql= require('mysql');
+app.use(bodyParser.json());
 
 
 
@@ -16,13 +18,15 @@ app.get('/', (request, response)=>{
 })
 
 app.post('/query', (req,res)=>{
+    const consulta= req.body.consulta;
+    const destino= req.body.destino;
     const connection= mysql.createConnection({
-        host: 'localhost',
-        user: 'root',
-        password: 'carla123',
-        database: 'carlita'
+        host: destino.host,
+        user: destino.user,
+        password: destino.password,
+        database: destino.database
     });
-    connection.query('select * from generos', (error, result, field)=>{
+    connection.query(consulta, (error, result, field)=>{
         res.json(result)
     })
     
