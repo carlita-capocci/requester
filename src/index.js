@@ -3,19 +3,17 @@ const app= express();
 const port= 3000;
 const bodyParser = require('body-parser');
 
+
 const mysql= require('mysql');
 app.use(bodyParser.json());
 
-
+app.use(express.static('./public'));
 
 
 app.get('/ping', (request, response)=>{
     response.send('pong');
 })
 
-app.get('/', (request, response)=>{
-    response.send('home');
-})
 
 app.post('/query', (req,res)=>{
     const consulta= req.body.consulta;
